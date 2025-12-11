@@ -1,0 +1,258 @@
+C:\xampp\mysql\bin>mysql.exe -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 9
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databses;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'databses' at line 1
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| emp                |
+| employee           |
+| hotelbooking       |
+| iii                |
+| implementation     |
+| information_schema |
+| mydata             |
+| mydb               |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| school             |
+| stu                |
+| student            |
+| test               |
+| user               |
++--------------------+
+16 rows in set (0.075 sec)
+
+MariaDB [(none)]> create database dec;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'dec' at line 1
+MariaDB [(none)]> create database my1;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| emp                |
+| employee           |
+| hotelbooking       |
+| iii                |
+| implementation     |
+| information_schema |
+| my1                |
+| mydata             |
+| mydb               |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| school             |
+| stu                |
+| student            |
+| test               |
+| user               |
++--------------------+
+17 rows in set (0.001 sec)
+
+MariaDB [(none)]> use my1;
+Database changed
+MariaDB [my1]> show tables;
+Empty set (0.001 sec)
+
+MariaDB [my1]> create table emp
+    -> (eid int,ename varchar(20),salary float(7,2),age int);
+Query OK, 0 rows affected (0.026 sec)
+
+MariaDB [my1]> show tables;
++---------------+
+| Tables_in_my1 |
++---------------+
+| emp           |
++---------------+
+1 row in set (0.001 sec)
+
+MariaDB [my1]> desc emp;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid    | int(11)     | YES  |     | NULL    |       |
+| ename  | varchar(20) | YES  |     | NULL    |       |
+| salary | float(7,2)  | YES  |     | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.024 sec)
+
+MariaDB [my1]> alter table emp
+    -> add column gender char(1);
+Query OK, 0 rows affected (0.014 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [my1]> desc emp;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid    | int(11)     | YES  |     | NULL    |       |
+| ename  | varchar(20) | YES  |     | NULL    |       |
+| salary | float(7,2)  | YES  |     | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
+| gender | char(1)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.021 sec)
+
+MariaDB [my1]> alter table emp
+    -> modify column gender varchar(1);
+Query OK, 0 rows affected (0.119 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [my1]> desc emp;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid    | int(11)     | YES  |     | NULL    |       |
+| ename  | varchar(20) | YES  |     | NULL    |       |
+| salary | float(7,2)  | YES  |     | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
+| gender | varchar(1)  | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.019 sec)
+
+MariaDB [my1]> alter table emp
+    -> change column gender sex varchar(1);
+Query OK, 0 rows affected (0.014 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [my1]> desc emp;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid    | int(11)     | YES  |     | NULL    |       |
+| ename  | varchar(20) | YES  |     | NULL    |       |
+| salary | float(7,2)  | YES  |     | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
+| sex    | varchar(1)  | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.027 sec)
+
+MariaDB [my1]> alter table emp
+    -> drop column salary;
+Query OK, 0 rows affected (0.020 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [my1]> desc emp;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| eid   | int(11)     | YES  |     | NULL    |       |
+| ename | varchar(20) | YES  |     | NULL    |       |
+| age   | int(11)     | YES  |     | NULL    |       |
+| sex   | varchar(1)  | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.020 sec)
+
+MariaDB [my1]> alter table emp
+    -> add column salary float(7,2);
+Query OK, 0 rows affected (0.017 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [my1]> desc emp;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid    | int(11)     | YES  |     | NULL    |       |
+| ename  | varchar(20) | YES  |     | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
+| sex    | varchar(1)  | YES  |     | NULL    |       |
+| salary | float(7,2)  | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.020 sec)
+
+MariaDB [my1]> alter table emp
+    -> add column middlename varchar(20);
+Query OK, 0 rows affected (0.013 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [my1]> alter table emp
+    -> drop column middlename;
+Query OK, 0 rows affected (0.013 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [my1]> alter table emp
+    -> add column middlename
+    -> after ename;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ename' at line 3
+MariaDB [my1]> alter table emp
+    -> add column middlename varchar(20)
+    -> after ename;
+Query OK, 0 rows affected (0.013 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [my1]> alter table emp
+    -> add column surname varchar(20)
+    -> after middlename;
+Query OK, 0 rows affected (0.032 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [my1]> desc emp;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| eid        | int(11)     | YES  |     | NULL    |       |
+| ename      | varchar(20) | YES  |     | NULL    |       |
+| middlename | varchar(20) | YES  |     | NULL    |       |
+| surname    | varchar(20) | YES  |     | NULL    |       |
+| age        | int(11)     | YES  |     | NULL    |       |
+| sex        | varchar(1)  | YES  |     | NULL    |       |
+| salary     | float(7,2)  | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.023 sec)
+
+MariaDB [my1]> alter table emp
+    -> modify column eid int primary key;
+Query OK, 0 rows affected (0.070 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [my1]> desc emp;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| eid        | int(11)     | NO   | PRI | NULL    |       |
+| ename      | varchar(20) | YES  |     | NULL    |       |
+| middlename | varchar(20) | YES  |     | NULL    |       |
+| surname    | varchar(20) | YES  |     | NULL    |       |
+| age        | int(11)     | YES  |     | NULL    |       |
+| sex        | varchar(1)  | YES  |     | NULL    |       |
+| salary     | float(7,2)  | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.020 sec)
+
+MariaDB [my1]> alter table emp
+    -> add column email varchar(20) unique;
+Query OK, 0 rows affected (0.097 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [my1]> alter table emp
+    -> modify column ename varchar(20) not null;
+Query OK, 0 rows affected (0.091 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [my1]> desc emp;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| eid        | int(11)     | NO   | PRI | NULL    |       |
+| ename      | varchar(20) | NO   |     | NULL    |       |
+| middlename | varchar(20) | YES  |     | NULL    |       |
+| surname    | varchar(20) | YES  |     | NULL    |       |
+| age        | int(11)     | YES  |     | NULL    |       |
+| sex        | varchar(1)  | YES  |     | NULL    |       |
+| salary     | float(7,2)  | YES  |     | NULL    |       |
+| email      | varchar(20) | YES  | UNI | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+8 rows in set (0.019 sec)
