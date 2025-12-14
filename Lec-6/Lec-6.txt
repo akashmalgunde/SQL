@@ -1,0 +1,404 @@
+Microsoft Windows [Version 10.0.19045.6466]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\xampp\mysql>code .
+
+C:\xampp\mysql>mysql.exe -u root
+'mysql.exe' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\xampp\mysql>cd bin
+
+C:\xampp\mysql\bin>mysql.exe -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 9
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databaes;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'databaes' at line 1
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| countries          |
+| emp                |
+| employee           |
+| hotelbooking       |
+| iii                |
+| implementation     |
+| information_schema |
+| my1                |
+| my2                |
+| mydata             |
+| mydb               |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| school             |
+| stu                |
+| student            |
+| test               |
+| user               |
++--------------------+
+19 rows in set (0.088 sec)
+
+MariaDB [(none)]> use employee;
+Database changed
+MariaDB [employee]> show tables;
++--------------------+
+| Tables_in_employee |
++--------------------+
+| abc                |
+| book               |
+| emp                |
+| emp1               |
+| product            |
+| rooms              |
+| student            |
++--------------------+
+7 rows in set (0.001 sec)
+
+MariaDB [employee]> select * from abc;
++--------+------+--------+------------+------+------+-------+
+| rollno | name | mobno  | email      | age  | city | marks |
++--------+------+--------+------------+------+------+-------+
+|      0 | abc  | 986532 | @gmail.com |   22 | pune |    36 |
+|      1 |      |   NULL | NULL       | NULL | NULL |  NULL |
++--------+------+--------+------------+------+------+-------+
+2 rows in set (0.061 sec)
+
+MariaDB [employee]> desc sbc;
+ERROR 1146 (42S02): Table 'employee.sbc' doesn't exist
+MariaDB [employee]> desc abc;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int(11)     | NO   | PRI | NULL    |       |
+| name   | varchar(20) | NO   |     | NULL    |       |
+| mobno  | int(11)     | YES  |     | NULL    |       |
+| email  | varchar(20) | YES  | UNI | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
+| city   | varchar(20) | YES  |     | pune    |       |
+| marks  | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+7 rows in set (0.047 sec)
+
+MariaDB [employee]> alter table abc
+    -> drop column name;
+Query OK, 0 rows affected (0.100 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [employee]> alter table abc
+    -> drop column mobno;
+Query OK, 0 rows affected (0.018 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [employee]> alter table abc
+    -> drop column email;
+Query OK, 0 rows affected (0.026 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [employee]> alter table abc
+    -> drop column age;
+Query OK, 0 rows affected (0.013 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [employee]> alter table abc
+    -> drop column city;
+Query OK, 0 rows affected (0.014 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [employee]> alter table abc
+    -> drop column marks;
+Query OK, 0 rows affected (0.014 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [employee]> desc abc;
++--------+---------+------+-----+---------+-------+
+| Field  | Type    | Null | Key | Default | Extra |
++--------+---------+------+-----+---------+-------+
+| rollno | int(11) | NO   | PRI | NULL    |       |
++--------+---------+------+-----+---------+-------+
+1 row in set (0.021 sec)
+
+MariaDB [employee]> select * from abc;
++--------+
+| rollno |
++--------+
+|      0 |
+|      1 |
++--------+
+2 rows in set (0.000 sec)
+
+MariaDB [employee]> alter table abc
+    -> add column name varchar(20);
+Query OK, 0 rows affected (0.015 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [employee]> alter table abc
+    -> add column marks int;
+Query OK, 0 rows affected (0.013 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [employee]> alter table abc
+    -> add column surname varchar(20)
+    -> after name;
+Query OK, 0 rows affected (0.013 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [employee]> alter table abc
+    -> add column middlename varchar(20)
+    -> after name;
+Query OK, 0 rows affected (0.013 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [employee]> alter table abc
+    -> add column grade char(2);
+Query OK, 0 rows affected (0.015 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [employee]> desc abc;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| rollno     | int(11)     | NO   | PRI | NULL    |       |
+| name       | varchar(20) | YES  |     | NULL    |       |
+| middlename | varchar(20) | YES  |     | NULL    |       |
+| surname    | varchar(20) | YES  |     | NULL    |       |
+| marks      | int(11)     | YES  |     | NULL    |       |
+| grade      | char(2)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.022 sec)
+
+MariaDB [employee]> select * from abc;
++--------+------+------------+---------+-------+-------+
+| rollno | name | middlename | surname | marks | grade |
++--------+------+------------+---------+-------+-------+
+|      0 | NULL | NULL       | NULL    |  NULL | NULL  |
+|      1 | NULL | NULL       | NULL    |  NULL | NULL  |
++--------+------+------------+---------+-------+-------+
+2 rows in set (0.001 sec)
+
+MariaDB [employee]> alter table abc
+    -> add column email varchar(20);
+Query OK, 0 rows affected (0.013 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [employee]> desc abc;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| rollno     | int(11)     | NO   | PRI | NULL    |       |
+| name       | varchar(20) | YES  |     | NULL    |       |
+| middlename | varchar(20) | YES  |     | NULL    |       |
+| surname    | varchar(20) | YES  |     | NULL    |       |
+| marks      | int(11)     | YES  |     | NULL    |       |
+| grade      | char(2)     | YES  |     | NULL    |       |
+| email      | varchar(20) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.019 sec)
+
+MariaDB [employee]> alter table abc
+    -> drop column email;
+Query OK, 0 rows affected (0.012 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [employee]> desc abc;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| rollno     | int(11)     | NO   | PRI | NULL    |       |
+| name       | varchar(20) | YES  |     | NULL    |       |
+| middlename | varchar(20) | YES  |     | NULL    |       |
+| surname    | varchar(20) | YES  |     | NULL    |       |
+| marks      | int(11)     | YES  |     | NULL    |       |
+| grade      | char(2)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+6 rows in set (0.018 sec)
+
+MariaDB [employee]> alter table abc
+    -> add column email varchar(20)
+    -> after surname;
+Query OK, 0 rows affected (0.014 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [employee]> desc abc;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| rollno     | int(11)     | NO   | PRI | NULL    |       |
+| name       | varchar(20) | YES  |     | NULL    |       |
+| middlename | varchar(20) | YES  |     | NULL    |       |
+| surname    | varchar(20) | YES  |     | NULL    |       |
+| email      | varchar(20) | YES  |     | NULL    |       |
+| marks      | int(11)     | YES  |     | NULL    |       |
+| grade      | char(2)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.020 sec)
+
+MariaDB [employee]> alter table abc
+    -> modify column email varchar(20) uniqye;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 2
+MariaDB [employee]> alter table abc
+    -> modify column email varchar(20) unique;
+Query OK, 0 rows affected (0.066 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [employee]> desc abc;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| rollno     | int(11)     | NO   | PRI | NULL    |       |
+| name       | varchar(20) | YES  |     | NULL    |       |
+| middlename | varchar(20) | YES  |     | NULL    |       |
+| surname    | varchar(20) | YES  |     | NULL    |       |
+| email      | varchar(20) | YES  | UNI | NULL    |       |
+| marks      | int(11)     | YES  |     | NULL    |       |
+| grade      | char(2)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.021 sec)
+
+MariaDB [employee]> alter table abc
+    -> modify column name varchar(20) not null;
+Query OK, 0 rows affected, 2 warnings (0.095 sec)
+Records: 0  Duplicates: 0  Warnings: 2
+
+MariaDB [employee]> desc abc;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| rollno     | int(11)     | NO   | PRI | NULL    |       |
+| name       | varchar(20) | NO   |     | NULL    |       |
+| middlename | varchar(20) | YES  |     | NULL    |       |
+| surname    | varchar(20) | YES  |     | NULL    |       |
+| email      | varchar(20) | YES  | UNI | NULL    |       |
+| marks      | int(11)     | YES  |     | NULL    |       |
+| grade      | char(2)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.018 sec)
+
+MariaDB [employee]> desc table abc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'table abc' at line 1
+MariaDB [employee]> desc abc;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| rollno     | int(11)     | NO   | PRI | NULL    |       |
+| name       | varchar(20) | NO   |     | NULL    |       |
+| middlename | varchar(20) | YES  |     | NULL    |       |
+| surname    | varchar(20) | YES  |     | NULL    |       |
+| email      | varchar(20) | YES  | UNI | NULL    |       |
+| marks      | int(11)     | YES  |     | NULL    |       |
+| grade      | char(2)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.017 sec)
+
+MariaDB [employee]> insert into abc
+    -> values(1,"abc","def",'ghi',"abc@gmail.com",75,'b1');
+ERROR 1062 (23000): Duplicate entry '1' for key 'PRIMARY'
+MariaDB [employee]> values(0,"abc","def",'ghi',"abc@gmail.com",75,'b1');
++---+-----+-----+-----+---------------+----+----+
+| 0 | abc | def | ghi | abc@gmail.com | 75 | b1 |
++---+-----+-----+-----+---------------+----+----+
+| 0 | abc | def | ghi | abc@gmail.com | 75 | b1 |
++---+-----+-----+-----+---------------+----+----+
+1 row in set (0.000 sec)
+
+MariaDB [employee]> select * from abc;
++--------+------+------------+---------+-------+-------+-------+
+| rollno | name | middlename | surname | email | marks | grade |
++--------+------+------------+---------+-------+-------+-------+
+|      0 |      | NULL       | NULL    | NULL  |  NULL | NULL  |
+|      1 |      | NULL       | NULL    | NULL  |  NULL | NULL  |
++--------+------+------------+---------+-------+-------+-------+
+2 rows in set (0.000 sec)
+
+MariaDB [employee]> insert into abc
+    -> values(2,"a0","b2","c3",75,"b1");
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MariaDB [employee]> insert into abc
+    -> values(2,"a0","b2","c3","a@gmail.com",75,"b1");
+Query OK, 1 row affected (0.005 sec)
+
+MariaDB [employee]> desc abc;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| rollno     | int(11)     | NO   | PRI | NULL    |       |
+| name       | varchar(20) | NO   |     | NULL    |       |
+| middlename | varchar(20) | YES  |     | NULL    |       |
+| surname    | varchar(20) | YES  |     | NULL    |       |
+| email      | varchar(20) | YES  | UNI | NULL    |       |
+| marks      | int(11)     | YES  |     | NULL    |       |
+| grade      | char(2)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.920 sec)
+
+MariaDB [employee]> select * from abc;
++--------+------+------------+---------+-------------+-------+-------+
+| rollno | name | middlename | surname | email       | marks | grade |
++--------+------+------------+---------+-------------+-------+-------+
+|      0 |      | NULL       | NULL    | NULL        |  NULL | NULL  |
+|      1 |      | NULL       | NULL    | NULL        |  NULL | NULL  |
+|      2 | a0   | b2         | c3      | a@gmail.com |    75 | b1    |
++--------+------+------------+---------+-------------+-------+-------+
+3 rows in set (0.000 sec)
+
+MariaDB [employee]> alter table abc
+    -> modify column marks int check (marks > 35 && marks < 100);
+Query OK, 0 rows affected (0.008 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [employee]> desc abc;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| rollno     | int(11)     | NO   | PRI | NULL    |       |
+| name       | varchar(20) | NO   |     | NULL    |       |
+| middlename | varchar(20) | YES  |     | NULL    |       |
+| surname    | varchar(20) | YES  |     | NULL    |       |
+| email      | varchar(20) | YES  | UNI | NULL    |       |
+| marks      | int(11)     | YES  |     | NULL    |       |
+| grade      | char(2)     | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+7 rows in set (0.035 sec)
+
+MariaDB [employee]> show create table abc;
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table | Create Table                                                                                                                                                                                                                                                                                                                                                                                                                           |
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| abc   | CREATE TABLE `abc` (
+  `rollno` int(11) NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `middlename` varchar(20) DEFAULT NULL,
+  `surname` varchar(20) DEFAULT NULL,
+  `email` varchar(20) DEFAULT NULL,
+  `marks` int(11) DEFAULT NULL CHECK (`marks` > 35 and `marks` < 100),
+  `grade` char(2) DEFAULT NULL,
+  PRIMARY KEY (`rollno`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci |
++-------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
+
+MariaDB [employee]> insert into abc
+    -> values(101,"a1","b1","c3","@",34,"d1");
+ERROR 4025 (23000): CONSTRAINT `abc.marks` failed for `employee`.`abc`
+MariaDB [employee]> insert into abc
+    -> values(201,"q1","p1","r1","q@",85,"a2");
+Query OK, 1 row affected (0.034 sec)
+
+MariaDB [employee]> select * from abc;
++--------+------+------------+---------+-------------+-------+-------+
+| rollno | name | middlename | surname | email       | marks | grade |
++--------+------+------------+---------+-------------+-------+-------+
+|      0 |      | NULL       | NULL    | NULL        |  NULL | NULL  |
+|      1 |      | NULL       | NULL    | NULL        |  NULL | NULL  |
+|      2 | a0   | b2         | c3      | a@gmail.com |    75 | b1    |
+|    201 | q1   | p1         | r1      | q@          |    85 | a2    |
++--------+------+------------+---------+-------------+-------+-------+
+4 rows in set (0.000 sec)
