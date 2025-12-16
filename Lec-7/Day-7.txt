@@ -1,0 +1,449 @@
+Microsoft Windows [Version 10.0.19045.6466]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\xampp\mysql\bin>mysql.exe -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| countries          |
+| dec14              |
+| emp                |
+| employee           |
+| hotelbooking       |
+| iii                |
+| implementation     |
+| information_schema |
+| my1                |
+| my2                |
+| mydata             |
+| mydb               |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| pract              |
+| school             |
+| stu                |
+| student            |
+| test               |
+| user               |
++--------------------+
+21 rows in set (0.124 sec)
+
+MariaDB [(none)]> use pract;
+Database changed
+MariaDB [pract]> show tables;
++-----------------+
+| Tables_in_pract |
++-----------------+
+| dept            |
+| student         |
++-----------------+
+2 rows in set (0.002 sec)
+
+MariaDB [pract]> drop table dept;
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails
+MariaDB [pract]> drop table student;
+Query OK, 0 rows affected (0.024 sec)
+
+MariaDB [pract]> drop table dept;
+Query OK, 0 rows affected (0.011 sec)
+
+MariaDB [pract]> show tables;
+Empty set (0.001 sec)
+
+MariaDB [pract]> create table employee
+    -> (eid int,ename varchar(20),age int);
+Query OK, 0 rows affected (0.032 sec)
+
+MariaDB [pract]> show tables;
++-----------------+
+| Tables_in_pract |
++-----------------+
+| employee        |
++-----------------+
+1 row in set (0.001 sec)
+
+MariaDB [pract]> create table dept
+    -> (dept_id int,dept_name varchar(20),dept_location varchar(20));
+Query OK, 0 rows affected (0.030 sec)
+
+MariaDB [pract]> show tables;
++-----------------+
+| Tables_in_pract |
++-----------------+
+| dept            |
+| employee        |
++-----------------+
+2 rows in set (0.001 sec)
+
+MariaDB [pract]> desc employee;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| eid   | int(11)     | YES  |     | NULL    |       |
+| ename | varchar(20) | YES  |     | NULL    |       |
+| age   | int(11)     | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.372 sec)
+
+MariaDB [pract]> alter table employee
+    -> add column email varchar(20) ;
+Query OK, 0 rows affected (0.013 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [pract]> alter table employee
+    -> drop column email;
+Query OK, 0 rows affected (0.028 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [pract]> desc employee;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| eid   | int(11)     | YES  |     | NULL    |       |
+| ename | varchar(20) | YES  |     | NULL    |       |
+| age   | int(11)     | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.024 sec)
+
+MariaDB [pract]> alter table employee
+    -> add column email varchar(20)
+    -> first;
+Query OK, 0 rows affected (0.019 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [pract]> desc employee;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| email | varchar(20) | YES  |     | NULL    |       |
+| eid   | int(11)     | YES  |     | NULL    |       |
+| ename | varchar(20) | YES  |     | NULL    |       |
+| age   | int(11)     | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.026 sec)
+
+MariaDB [pract]> alter table employee
+    -> drop column email;
+Query OK, 0 rows affected (0.019 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [pract]> alter table employee
+    -> add column email varchar(20)
+    -> after ename;
+Query OK, 0 rows affected (0.014 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [pract]> desc employee;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| eid   | int(11)     | YES  |     | NULL    |       |
+| ename | varchar(20) | YES  |     | NULL    |       |
+| email | varchar(20) | YES  |     | NULL    |       |
+| age   | int(11)     | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.024 sec)
+
+MariaDB [pract]> alter table emloyee
+    -> add column salary float(7,2);
+ERROR 1146 (42S02): Table 'pract.emloyee' doesn't exist
+MariaDB [pract]> alter table employee
+    -> add column salary float(7,2);
+Query OK, 0 rows affected (0.013 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [pract]> desc employee;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid    | int(11)     | YES  |     | NULL    |       |
+| ename  | varchar(20) | YES  |     | NULL    |       |
+| email  | varchar(20) | YES  |     | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
+| salary | float(7,2)  | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.020 sec)
+
+MariaDB [pract]> alter table employee
+    -> modify column eid int primary key;
+Query OK, 0 rows affected (0.405 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [pract]> alter table email
+    -> add unique(ename);
+ERROR 1146 (42S02): Table 'pract.email' doesn't exist
+MariaDB [pract]> alter table employee
+    -> add unique(email);
+Query OK, 0 rows affected (0.030 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [pract]> alter table email
+    -> modify email varchar(20);
+ERROR 1146 (42S02): Table 'pract.email' doesn't exist
+MariaDB [pract]> alter table employee
+    -> modify column email varchar(20);
+Query OK, 0 rows affected (0.008 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [pract]> desc employee;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid    | int(11)     | NO   | PRI | NULL    |       |
+| ename  | varchar(20) | YES  |     | NULL    |       |
+| email  | varchar(20) | YES  | UNI | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
+| salary | float(7,2)  | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.038 sec)
+
+MariaDB [pract]> alter table employee
+    -> modify column age int check (age >= 18);
+Query OK, 0 rows affected (0.008 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [pract]> desc employee;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid    | int(11)     | NO   | PRI | NULL    |       |
+| ename  | varchar(20) | YES  |     | NULL    |       |
+| email  | varchar(20) | YES  | UNI | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
+| salary | float(7,2)  | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.045 sec)
+
+MariaDB [pract]> show create table employee;
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                                                               |
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| employee | CREATE TABLE `employee` (
+  `eid` int(11) NOT NULL,
+  `ename` varchar(20) DEFAULT NULL,
+  `email` varchar(20) DEFAULT NULL,
+  `age` int(11) DEFAULT NULL CHECK (`age` >= 18),
+  `salary` float(7,2) DEFAULT NULL,
+  PRIMARY KEY (`eid`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci |
++----------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.000 sec)
+
+MariaDB [pract]> alter table employee
+    -> add column city varchar(20);
+Query OK, 0 rows affected (0.014 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [pract]> desc employee;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid    | int(11)     | NO   | PRI | NULL    |       |
+| ename  | varchar(20) | YES  |     | NULL    |       |
+| email  | varchar(20) | YES  | UNI | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
+| salary | float(7,2)  | YES  |     | NULL    |       |
+| city   | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+6 rows in set (0.021 sec)
+
+MariaDB [pract]> alter table emloyee
+    -> modify column city varchar(20) default "Pune";
+ERROR 1146 (42S02): Table 'pract.emloyee' doesn't exist
+MariaDB [pract]> alter table employee
+    -> modify column city varchar(20) default "Pune";
+Query OK, 0 rows affected (0.010 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [pract]> desc employee;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid    | int(11)     | NO   | PRI | NULL    |       |
+| ename  | varchar(20) | YES  |     | NULL    |       |
+| email  | varchar(20) | YES  | UNI | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
+| salary | float(7,2)  | YES  |     | NULL    |       |
+| city   | varchar(20) | YES  |     | Pune    |       |
++--------+-------------+------+-----+---------+-------+
+6 rows in set (0.020 sec)
+
+MariaDB [pract]> alter table emolyee
+    -> modify column ename varchar(20) not null;
+ERROR 1146 (42S02): Table 'pract.emolyee' doesn't exist
+MariaDB [pract]> alter table employee
+    -> modify column ename varchar(20) not null;
+Query OK, 0 rows affected (0.092 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [pract]> desc employee;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid    | int(11)     | NO   | PRI | NULL    |       |
+| ename  | varchar(20) | NO   |     | NULL    |       |
+| email  | varchar(20) | YES  | UNI | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
+| salary | float(7,2)  | YES  |     | NULL    |       |
+| city   | varchar(20) | YES  |     | Pune    |       |
++--------+-------------+------+-----+---------+-------+
+6 rows in set (0.045 sec)
+
+MariaDB [pract]> drop table employee;
+Query OK, 0 rows affected (0.025 sec)
+
+MariaDB [pract]> desc dept;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| dept_id       | int(11)     | YES  |     | NULL    |       |
+| dept_name     | varchar(20) | YES  |     | NULL    |       |
+| dept_location | varchar(20) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+3 rows in set (0.020 sec)
+
+MariaDB [pract]> create table emloyee
+    -> ;
+ERROR 1113 (42000): A table must have at least 1 column
+MariaDB [pract]> create table employee
+    -> (eid int,ename varchar(20),salary float(7,2),email varchar(20));
+Query OK, 0 rows affected (0.029 sec)
+
+MariaDB [pract]> show tables;
++-----------------+
+| Tables_in_pract |
++-----------------+
+| dept            |
+| employee        |
++-----------------+
+2 rows in set (0.001 sec)
+
+MariaDB [pract]> desc dept;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| dept_id       | int(11)     | YES  |     | NULL    |       |
+| dept_name     | varchar(20) | YES  |     | NULL    |       |
+| dept_location | varchar(20) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+3 rows in set (0.376 sec)
+
+MariaDB [pract]> desc employee;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid    | int(11)     | YES  |     | NULL    |       |
+| ename  | varchar(20) | YES  |     | NULL    |       |
+| salary | float(7,2)  | YES  |     | NULL    |       |
+| email  | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.022 sec)
+
+MariaDB [pract]> alter table employee
+    -> add primary key(eid,ename);
+Query OK, 0 rows affected (0.065 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [pract]> desc employee;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid    | int(11)     | NO   | PRI | NULL    |       |
+| ename  | varchar(20) | NO   | PRI | NULL    |       |
+| salary | float(7,2)  | YES  |     | NULL    |       |
+| email  | varchar(20) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.022 sec)
+
+MariaDB [pract]> alter table employee
+    -> add column dept_no int;
+Query OK, 0 rows affected (0.013 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [pract]> desc employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int(11)     | NO   | PRI | NULL    |       |
+| ename   | varchar(20) | NO   | PRI | NULL    |       |
+| salary  | float(7,2)  | YES  |     | NULL    |       |
+| email   | varchar(20) | YES  |     | NULL    |       |
+| dept_no | int(11)     | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.032 sec)
+
+MariaDB [pract]> alter table employee
+    -> add foreign key(dept_no)
+    -> references dept(dept_id);
+ERROR 1005 (HY000): Can't create table `pract`.`employee` (errno: 150 "Foreign key constraint is incorrectly formed")
+MariaDB [pract]> alter table employee
+    -> add forign key(dept_no)
+    -> references dept(dept_id);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'key(dept_no)
+references dept(dept_id)' at line 2
+MariaDB [pract]> alter table employee
+    -> add foreign key employee(dept_no)
+    -> references dept(dept_id);
+ERROR 1005 (HY000): Can't create table `pract`.`employee` (errno: 150 "Foreign key constraint is incorrectly formed")
+MariaDB [pract]> alter table employee
+    -> add foreign key (dept_no)
+    -> references dept(dept_id);
+ERROR 1005 (HY000): Can't create table `pract`.`employee` (errno: 150 "Foreign key constraint is incorrectly formed")
+MariaDB [pract]> desc dept;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| dept_id       | int(11)     | YES  |     | NULL    |       |
+| dept_name     | varchar(20) | YES  |     | NULL    |       |
+| dept_location | varchar(20) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+3 rows in set (0.021 sec)
+
+MariaDB [pract]> alter table dept
+    -> add primary key(dept_id);
+Query OK, 0 rows affected (0.076 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [pract]> desc dept;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| dept_id       | int(11)     | NO   | PRI | NULL    |       |
+| dept_name     | varchar(20) | YES  |     | NULL    |       |
+| dept_location | varchar(20) | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+3 rows in set (0.018 sec)
+
+MariaDB [pract]> alter table employee
+    -> add foreign key(dept_no)
+    -> references dept(dept_id);
+Query OK, 0 rows affected (0.130 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [pract]> show create table employee;
++----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Table    | Create Table                                                                                                                                                                                                                                                                                                                                                                                                      |
++----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| employee | CREATE TABLE `employee` (
+  `eid` int(11) NOT NULL,
+  `ename` varchar(20) NOT NULL,
+  `salary` float(7,2) DEFAULT NULL,
+  `email` varchar(20) DEFAULT NULL,
+  `dept_no` int(11) DEFAULT NULL,
+  PRIMARY KEY (`eid`,`ename`),
+  KEY `dept_no` (`dept_no`),
+  CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`dept_no`) REFERENCES `dept` (`dept_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci |
++----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+1 row in set (0.001 sec)
