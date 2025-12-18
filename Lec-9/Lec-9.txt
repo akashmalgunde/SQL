@@ -1,0 +1,332 @@
+Microsoft Windows [Version 10.0.19045.6466]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\xampp\mysql\bin>mysql.exe -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 8
+Server version: 10.4.32-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| countries          |
+| dec14              |
+| e1                 |
+| emp                |
+| employee           |
+| hotelbooking       |
+| iii                |
+| implementation     |
+| information_schema |
+| my1                |
+| my2                |
+| mydata             |
+| mydb               |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| pract              |
+| pract1             |
+| school             |
+| stu                |
+| student            |
+| test               |
+| user               |
++--------------------+
+23 rows in set (0.099 sec)
+
+MariaDB [(none)]> create database dec18
+    -> ;
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [(none)]> create table employee
+    -> (eid int primary key,name varchar(20) not null,age int not null,salary float(7,2));
+ERROR 1046 (3D000): No database selected
+MariaDB [(none)]> use dec18;
+Database changed
+MariaDB [dec18]> create table employee
+    -> (
+    -> eid int primary key,
+    -> ename varchar(20) not null,
+    -> age int check age >= 18
+    -> )
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'age >= 18
+)' at line 5
+MariaDB [dec18]> create table employee
+    -> (
+    -> eid int primary key,
+    -> ename varchar(20) not null,
+    -> age int check (age >= 18)
+    -> )
+    -> ;
+Query OK, 0 rows affected (0.030 sec)
+
+MariaDB [dec18]> desc employee;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| eid   | int(11)     | NO   | PRI | NULL    |       |
+| ename | varchar(20) | NO   |     | NULL    |       |
+| age   | int(11)     | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.078 sec)
+
+MariaDB [dec18]> alter table employee
+    -> add column salary float(7,2);
+Query OK, 0 rows affected (0.014 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [dec18]> desc employee;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid    | int(11)     | NO   | PRI | NULL    |       |
+| ename  | varchar(20) | NO   |     | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
+| salary | float(7,2)  | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.023 sec)
+
+MariaDB [dec18]> insert into employee
+    -> (eid,ename) values(11,"e1");
+Query OK, 1 row affected (0.060 sec)
+
+MariaDB [dec18]> select * from employee;
++-----+-------+------+--------+
+| eid | ename | age  | salary |
++-----+-------+------+--------+
+|  11 | e1    | NULL |   NULL |
++-----+-------+------+--------+
+1 row in set (0.000 sec)
+
+MariaDB [dec18]> insert into employee
+    -> values (12,"e1",17,25000);
+ERROR 4025 (23000): CONSTRAINT `employee.age` failed for `dec18`.`employee`
+MariaDB [dec18]> insert into employee
+    -> values (12,"e1",18,25000);
+Query OK, 1 row affected (0.007 sec)
+
+MariaDB [dec18]> select * from employee;
++-----+-------+------+----------+
+| eid | ename | age  | salary   |
++-----+-------+------+----------+
+|  11 | e1    | NULL |     NULL |
+|  12 | e1    |   18 | 25000.00 |
++-----+-------+------+----------+
+2 rows in set (0.000 sec)
+
+MariaDB [dec18]> alter table employee
+    -> modify column eid int auto_increment;
+Query OK, 2 rows affected (0.106 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [dec18]> insert into employee
+    -> (ename,age,salary) values ("e2",25,26000);
+Query OK, 1 row affected (0.006 sec)
+
+MariaDB [dec18]> select * from employee;
++-----+-------+------+----------+
+| eid | ename | age  | salary   |
++-----+-------+------+----------+
+|  11 | e1    | NULL |     NULL |
+|  12 | e1    |   18 | 25000.00 |
+|  13 | e2    |   25 | 26000.00 |
++-----+-------+------+----------+
+3 rows in set (0.000 sec)
+
+MariaDB [dec18]> alter table employee
+    -> drop constraint primary key;
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+MariaDB [dec18]> alter table employee
+    -> modify column eid int primary key;
+ERROR 1068 (42000): Multiple primary key defined
+MariaDB [dec18]> drop table employee;
+Query OK, 0 rows affected (0.019 sec)
+
+MariaDB [dec18]> create table employee
+    -> (eid int primary key,ename varchar(20),age int,salary float(7,2));
+Query OK, 0 rows affected (0.025 sec)
+
+MariaDB [dec18]> desc employee;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| eid    | int(11)     | NO   | PRI | NULL    |       |
+| ename  | varchar(20) | YES  |     | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
+| salary | float(7,2)  | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.020 sec)
+
+MariaDB [dec18]> alter table employee
+    -> modify column employee int auto_increment from 1000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'from 1000' at line 2
+MariaDB [dec18]> alter table employee
+    -> modify column employee int auto_increment 1000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '1000' at line 2
+MariaDB [dec18]> alter table employee
+    -> modify column employee int auto_increment = 1000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '= 1000' at line 2
+MariaDB [dec18]> alter table employee
+    -> modify column employee int auto_increment=1000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '=1000' at line 2
+MariaDB [dec18]> alter table employee
+    -> auto_increment = 1000;
+Query OK, 0 rows affected (0.008 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [dec18]> insert into employee
+    -> (ename,age,salary) values ('e1',22,25000);
+Query OK, 1 row affected, 1 warning (0.007 sec)
+
+MariaDB [dec18]> select * from employee;
++-----+-------+------+----------+
+| eid | ename | age  | salary   |
++-----+-------+------+----------+
+|   0 | e1    |   22 | 25000.00 |
++-----+-------+------+----------+
+1 row in set (0.000 sec)
+
+MariaDB [dec18]> insert into employee
+    -> (ename,age,salary) values ('e1',22,25000);
+ERROR 1062 (23000): Duplicate entry '0' for key 'PRIMARY'
+MariaDB [dec18]> alter table employee
+    -> modify column eid int auto_increment;
+Query OK, 1 row affected (0.180 sec)
+Records: 1  Duplicates: 0  Warnings: 0
+
+MariaDB [dec18]> alter table employee
+    -> (ename,age,salary) values ('e1',22,25000);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(ename,age,salary) values ('e1',22,25000)' at line 2
+MariaDB [dec18]> insert into employee
+    -> (ename,age,salary) values ('e1',22,25000);
+Query OK, 1 row affected (0.007 sec)
+
+MariaDB [dec18]> select * from employee;
++-----+-------+------+----------+
+| eid | ename | age  | salary   |
++-----+-------+------+----------+
+|   1 | e1    |   22 | 25000.00 |
+|   2 | e1    |   22 | 25000.00 |
++-----+-------+------+----------+
+2 rows in set (0.000 sec)
+
+MariaDB [dec18]> alter table employee
+    -> auto_increment = 1000;
+Query OK, 0 rows affected (0.012 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [dec18]> insert into employee
+    -> (ename,age,salary) values ('e1',22,25000);
+Query OK, 1 row affected (0.007 sec)
+
+MariaDB [dec18]> select * from employee;
++------+-------+------+----------+
+| eid  | ename | age  | salary   |
++------+-------+------+----------+
+|    1 | e1    |   22 | 25000.00 |
+|    2 | e1    |   22 | 25000.00 |
+| 1000 | e1    |   22 | 25000.00 |
++------+-------+------+----------+
+3 rows in set (0.000 sec)
+
+MariaDB [dec18]> insert into employee
+    -> (ename,age,salary) values ('e1',22,25000);
+Query OK, 1 row affected (0.006 sec)
+
+MariaDB [dec18]> select * from employee;
++------+-------+------+----------+
+| eid  | ename | age  | salary   |
++------+-------+------+----------+
+|    1 | e1    |   22 | 25000.00 |
+|    2 | e1    |   22 | 25000.00 |
+| 1000 | e1    |   22 | 25000.00 |
+| 1001 | e1    |   22 | 25000.00 |
++------+-------+------+----------+
+4 rows in set (0.000 sec)
+
+MariaDB [dec18]> alter table employee
+    -> auto_increment = 2000;
+Query OK, 0 rows affected (0.029 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [dec18]> insert into employee
+    -> (ename,age,salary) values ('e1',22,25000);
+Query OK, 1 row affected (0.006 sec)
+
+MariaDB [dec18]> select * from employee;
++------+-------+------+----------+
+| eid  | ename | age  | salary   |
++------+-------+------+----------+
+|    1 | e1    |   22 | 25000.00 |
+|    2 | e1    |   22 | 25000.00 |
+| 1000 | e1    |   22 | 25000.00 |
+| 1001 | e1    |   22 | 25000.00 |
+| 2000 | e1    |   22 | 25000.00 |
++------+-------+------+----------+
+5 rows in set (0.000 sec)
+
+MariaDB [dec18]> select * from employee
+    -> where (age = 22) or (age = 23);
++------+-------+------+----------+
+| eid  | ename | age  | salary   |
++------+-------+------+----------+
+|    1 | e1    |   22 | 25000.00 |
+|    2 | e1    |   22 | 25000.00 |
+| 1000 | e1    |   22 | 25000.00 |
+| 1001 | e1    |   22 | 25000.00 |
+| 2000 | e1    |   22 | 25000.00 |
++------+-------+------+----------+
+5 rows in set (0.000 sec)
+
+MariaDB [dec18]> alter table employee
+    -> ;
+Query OK, 0 rows affected (0.000 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [dec18]> select * from employee
+    -> where eid = 2000;
++------+-------+------+----------+
+| eid  | ename | age  | salary   |
++------+-------+------+----------+
+| 2000 | e1    |   22 | 25000.00 |
++------+-------+------+----------+
+1 row in set (0.000 sec)
+
+MariaDB [dec18]> update employee
+    -> set age = 23 where age = 22;
+Query OK, 5 rows affected (0.006 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+MariaDB [dec18]> select * from employee;
++------+-------+------+----------+
+| eid  | ename | age  | salary   |
++------+-------+------+----------+
+|    1 | e1    |   23 | 25000.00 |
+|    2 | e1    |   23 | 25000.00 |
+| 1000 | e1    |   23 | 25000.00 |
+| 1001 | e1    |   23 | 25000.00 |
+| 2000 | e1    |   23 | 25000.00 |
++------+-------+------+----------+
+5 rows in set (0.000 sec)
+
+MariaDB [dec18]> alter "'
+    "> '
+    "> '
+    "> ''
+    "> ";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '"'
+'
+'
+''
+"' at line 1
+MariaDB [dec18]> drop table employee;
+Query OK, 0 rows affected (0.024 sec)
+
+MariaDB [dec18]>
